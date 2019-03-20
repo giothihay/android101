@@ -3,11 +3,17 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
-    android:layout_height="wrap_content">
 
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d7cac3"/>
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="5dp"
         android:id="@+id/profile_image"
         android:src="@mipmap/ic_launcher"/>
 
@@ -20,6 +26,7 @@
         android:layout_toEndOf="@id/profile_image"
         android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
+        android:textColor="#0b0b0b"
         android:textSize="18sp"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -58,7 +65,7 @@
         android:layout_marginTop="5dp"
         android:paddingTop="5dp"
         android:id="@+id/last_msg"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="#fffcfc"
         android:layout_marginLeft="20dp"
         android:maxLines="1"/>
 

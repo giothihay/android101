@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,7 +36,7 @@ public class ChatsFragment extends Fragment {
     private List<User> mUsers;
 
     private RecyclerView recyclerView_story;
-
+    private TextView show;
 
     FirebaseUser fuser;
     DatabaseReference reference;
@@ -50,7 +51,7 @@ public class ChatsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        show = view.findViewById(R.id.show);
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
         usersList = new ArrayList<>();
@@ -100,6 +101,9 @@ public class ChatsFragment extends Fragment {
                             mUsers.add(user);
                         }
                     }
+                }
+                if(mUsers.size()>0){
+                    show.setVisibility(View.GONE);
                 }
                 userAdapter = new UserAdapter(getContext(), mUsers, true);
                 recyclerView.setAdapter(userAdapter);

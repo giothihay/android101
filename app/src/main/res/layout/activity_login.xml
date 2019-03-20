@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ff5e00"
+    android:background="#ff6200"
     tools:context=".LoginActivity">
 
     <include
@@ -12,19 +12,20 @@
         layout="@layout/bar_layout"/>
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_below="@id/toolbar"
         android:padding="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="50dp"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Login"
-            android:textSize="20sp"
+            android:textSize="40sp"
             android:textStyle="bold"/>
 
         <com.rengwuxian.materialedittext.MaterialEditText
@@ -58,9 +59,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Forgot you password?"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="end"
+            android:text="Forgot your password ?"
+            android:layout_marginTop="15dp"
+
             android:textStyle="bold"
             android:id="@+id/forgot_password"
             android:textColor="#000"/>

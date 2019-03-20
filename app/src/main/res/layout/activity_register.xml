@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff237"
+    android:background="#ff3c00"
     tools:context=".RegisterActivity">
 
     <include
@@ -16,14 +16,15 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_below="@id/toolbar"
+        android:layout_marginTop="50dp"
         android:padding="16dp"
         android:layout_height="wrap_content">
 
         <TextView
             android:layout_width="229dp"
             android:layout_height="38dp"
-            android:text="Create a new account"
-            android:textSize="20sp"
+            android:text="Create account"
+            android:textSize="30sp"
             android:textStyle="bold" />
 
         <com.rengwuxian.materialedittext.MaterialEditText

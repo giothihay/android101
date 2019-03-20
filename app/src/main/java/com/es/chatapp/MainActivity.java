@@ -13,9 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.es.chatapp.Fragments.FriendsFragment;
+import com.es.chatapp.Fragments.RequestsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,15 +41,22 @@ public class MainActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
-
+      TabLayout  tabLayout;
     FirebaseUser firebaseUser;
     DatabaseReference reference;
-
+    private int[] tabIcons = {
+            R.drawable.ic_chat,
+            R.drawable.ic_addfr,
+            R.drawable.ic_frlist,
+            R.drawable.ic_search,
+            R.drawable.ic_account
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -77,9 +87,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        final TabLayout tabLayout = findViewById(R.id.tab_layout);
+         tabLayout = findViewById(R.id.tab_layout);
         final ViewPager viewPager = findViewById(R.id.view_pager);
-
+        //setupTabIcons();
 
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
@@ -95,18 +105,21 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (unread == 0){
-                    viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+                    viewPagerAdapter.addFragment(new ChatsFragment(), " ");
                 } else {
-                    viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+") Chats");
+                    viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+")  ");
                 }
 
-                viewPagerAdapter.addFragment(new UsersFragment(), "Users");
-                viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+                viewPagerAdapter.addFragment(new RequestsFragment(), " ");
+                viewPagerAdapter.addFragment(new FriendsFragment(), " ");
+                viewPagerAdapter.addFragment(new UsersFragment(), " ");
+                viewPagerAdapter.addFragment(new ProfileFragment(), " ");
+
 
                 viewPager.setAdapter(viewPagerAdapter);
 
                 tabLayout.setupWithViewPager(viewPager);
-
+                setupTabIcons();
             }
 
             @Override
@@ -116,6 +129,15 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        tabLayout.getTabAt(4).setIcon(tabIcons[4]);
     }
 
     @Override

@@ -5,17 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="#ce0f52"
     tools:context=".MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
+        android:background="#ce0f52"
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="#ce0f52"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/MenuStyle">
 
@@ -40,7 +42,7 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="#ce0f52"
             app:tabSelectedTextColor="#fff"
             app:tabIndicatorColor="#fff"
             app:tabTextColor="#fff"/>

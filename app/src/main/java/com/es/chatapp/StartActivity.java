@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,7 +19,8 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         //check if user is null

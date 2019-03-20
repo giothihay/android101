@@ -11,10 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.es.chatapp.MainActivity;
+import com.es.chatapp.StartActivity;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,10 +47,14 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment {
 
     CircleImageView image_profile;
-    TextView username;
+   // TextView username;
+    Button updateBtn;
+    Button logoutBtn;
 
+    EditText inputUpdate ;
     DatabaseReference reference;
     FirebaseUser fuser;
+    TextView idSearch;
 
     StorageReference storageReference;
     private static final int IMAGE_REQUEST = 1;
@@ -61,22 +69,62 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         image_profile = view.findViewById(R.id.profile_image);
-        username = view.findViewById(R.id.username);
+      //  username = view.findViewById(R.id.username);
+        idSearch = view.findViewById(R.id.myID);
+        updateBtn = view.findViewById(R.id.buttonUpdate);
+
+        logoutBtn = view.findViewById(R.id.buttonLogout);
+
+        inputUpdate = view.findViewById(R.id.editText);
+
 
         storageReference = FirebaseStorage.getInstance().getReference("uploads");
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
 
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getContext(), StartActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
+
+        updateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(inputUpdate.getText().toString().equalsIgnoreCase("")){
+
+                } else{
+                    reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("username", ""+inputUpdate.getText());
+                    reference.updateChildren(map);
+                    //reference.child("username").setValue(inputUpdate.getText());
+                }
+            }
+        });
+
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                username.setText(user.getUsername());
+                //username.setText(user.getUsername());
+                idSearch.setText("id: "+user.getSearch());
+                inputUpdate.setText(user.getUsername());
                 if (user.getImageURL().equals("default")){
                     image_profile.setImageResource(R.mipmap.ic_launcher);
                 } else {
-                    Glide.with(getContext()).load(user.getImageURL()).into(image_profile);
+                    try {
+                        Glide.with(getContext()).load(user.getImageURL()).into(image_profile);
+                    } catch (Exception r){
+                        image_profile.setImageResource(R.mipmap.ic_launcher);
+                    }
                 }
             }
 

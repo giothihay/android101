@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.es.chatapp.Adapter.UserViewAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,7 +33,7 @@ public class UsersFragment extends Fragment {
 
     private RecyclerView recyclerView;
 
-    private UserAdapter userAdapter;
+    private UserViewAdapter userAdapter;
     private List<User> mUsers;
 
     EditText search_users;
@@ -94,7 +95,7 @@ public class UsersFragment extends Fragment {
                     }
                 }
 
-                userAdapter = new UserAdapter(getContext(), mUsers, false);
+                userAdapter = new UserViewAdapter(getContext(), mUsers, false);
                 recyclerView.setAdapter(userAdapter);
             }
 
@@ -125,7 +126,7 @@ public class UsersFragment extends Fragment {
 
                     }
 
-                    userAdapter = new UserAdapter(getContext(), mUsers, false);
+                    userAdapter = new UserViewAdapter(getContext(), mUsers, false);
                     recyclerView.setAdapter(userAdapter);
                 }
             }

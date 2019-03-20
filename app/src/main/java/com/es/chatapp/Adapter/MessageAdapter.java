@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.es.chatapp.Model.Chat;
 import com.es.chatapp.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -50,8 +51,29 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public void onBindViewHolder(@NonNull MessageAdapter.ViewHolder holder, int position) {
 
         Chat chat = mChat.get(position);
+    try {
+        if (chat.getType().equalsIgnoreCase("image")) {
+            holder.show_message.setVisibility(View.INVISIBLE);
+            Picasso.with(holder.img_send.getContext()).load(chat.getMessage())
+                    .placeholder(R.drawable.default_avatar).into(holder.img_send);
 
+        } else if (chat.getMessage().substring(0,5).equalsIgnoreCase("gift:"))
+        {
+
+            holder.show_message.setVisibility(View.INVISIBLE);
+            Picasso.with(holder.img_send.getContext()).load(chat.getMessage().replaceAll("gift:","").trim())
+                    .placeholder(R.drawable.default_avatar).into(holder.img_send);
+        }
+            else {
+        holder.img_send.setVisibility(View.INVISIBLE);
         holder.show_message.setText(chat.getMessage());
+      }
+} catch (Exception e){
+        holder.img_send.setVisibility(View.INVISIBLE);
+        holder.show_message.setText(chat.getMessage());
+}
+
+
 
         if (imageurl.equals("default")){
             holder.profile_image.setImageResource(R.mipmap.ic_launcher);
@@ -81,6 +103,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         public TextView show_message;
         public ImageView profile_image;
         public TextView txt_seen;
+        public ImageView img_send;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -88,6 +111,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             show_message = itemView.findViewById(R.id.show_message);
             profile_image = itemView.findViewById(R.id.profile_image);
             txt_seen = itemView.findViewById(R.id.txt_seen);
+            img_send = itemView.findViewById(R.id.message_image_layout);
         }
     }
 
